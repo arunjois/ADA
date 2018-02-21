@@ -23,7 +23,7 @@ int main()
 			printf("%d ",arr[i]);
 		printf("\n");
 		k = (tvalAfter.tv_usec) - (tvalBefore.tv_usec);
-		fprintf(fp,"%d\t%d\n",n,k);
+		fprintf(fp,"\n %d  %d \n",n,k);
 	}
 	fclose(fp);
 	return 0;
