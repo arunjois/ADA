@@ -35,37 +35,41 @@ void main()
 {
 	int a[5000],b[5000],n;
 	struct timeval before, After;
-	int i,cho,iter;
+	int i,cho,iter,some;
+	int ch=1;
+	FILE *fp,*FP;
+	fp=fopen("simple.txt","w");
+	FP=fopen("modified.txt","w");
 
-	FILE *fp;
-	fp=fopen("output.txt","w");
-
-
-	printf("\n Enter the size of Array\n");
-	scanf("%d",&n);
 	printf("\n Enter number of iteration\n");
 	scanf("%d",&iter);
-	while(1)
+	
+	printf("*");
+	for(some=0;some<iter;some++)
 	{
+		ch=1;
+		/*printf("\n New Set of arrays\n");
+		  for(i=0;i<n;i++)
+		  {
+		  a[i]=rand()%1000;
+		  b[i]=a[i];
+		//printf(" %d\t",a[i]);
+		}*/
+		printf("\n Enter n\n");
+		scanf("%d",&n);
 		for(i=0;i<n;i++)
 		{
 			a[i]=rand()%1000;
 			b[i]=a[i];
-			//printf(" %d\t",a[i]);
 		}
-		for(i=0;i<iter;i++)
+
+
+		do 	
 		{
-		        /*printf("\n New Set of arrays\n");
-			for(i=0;i<n;i++)
-			{
-				a[i]=rand()%1000;
-				b[i]=a[i];
-				//printf(" %d\t",a[i]);
-			}*/
 			printf("\n MENU\n");
 			printf(" 1. Simple Bubble Sort\n");
 			printf(" 2. Modified Bubble Sort\n");
-			printf(" 3. Exit\n");
+			printf(" 3. Go-to Next ITER\n");
 			printf(" Enter Your Choice\n");
 			scanf("%d",&cho);
 			switch(cho)
@@ -88,16 +92,14 @@ void main()
 					printf("\nTime taken for sorting is %d microseconds\n",k);
 					for(i=0;i<n;i++)
 						printf("%d \t",b[i]);
-					fprintf(fp,"%d\t%d\n",n,k);
-					fprintf(fp,"\n\n");
+					fprintf(FP,"%d\t%d\n",n,k);
 					break;
-				case 3:exit(0);
+				case 3:ch=0;
+				       break;
 			}
-			for(i=0;i<n;i++)
-				printf("%d \t",a[i]);
-
-
-		}
-		printf("\n");
+		}while(ch);
+		/*printf("^");*/
 	}
+	fclose(fp);
+	fclose(FP);
 }
