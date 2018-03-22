@@ -1,7 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 int a[20][20],rem[20],n,i,j,flag=0,ind;
-void main()
+int main()
 {
 	printf("Enter number of vertices:\n");
 	scanf("%d",&n);
@@ -43,7 +43,6 @@ void main()
 		}
 	}
 	printf("\n");
+	return 0;
 }
-
-
 
