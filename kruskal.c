@@ -1,78 +1,82 @@
 #include<stdio.h>
+#include<stdlib.h>
+#include<sys/time.h>
+int i,j,k,a,b,u,v,n,ne=1;
+int min,mincost=0,cost[9][9],parent[9];
+int find(int);
+int uni(int,int);
 
-int root[10],cost[10][10],temp,flag;
-int n,count=0,i,j,x,y,min,total_cost = 0;
-
-void find_min(){
-	min = 999;
-	for(i=1;i<=n;i++)
-		for(j=1;j<=n;j++)
-			if(cost[i][j] < min){
-				min = cost[i][j];
-				x = i;
-				y = j;
+void kruskal()
+{
+	printf("The edges of minimum spanning are \n");
+	while(ne<n)
+	{
+		for(i=1,min=999;i<=n;i++)
+		{
+			for(j=1;j<=n;j++)
+			{
+				if(cost[i][j]<min)
+				{
+					min=cost[i][j];
+					a=u=i;
+					b=v=j;
+				}
 			}
-}
-
-
-void check_cycle(){
-
-	if((root[x]==root[y]) && (root[x] != 0 ))
-		flag = 0;
-	else
-		flag = 1;
-}
-void update(){
-
-	if(root[x] == 0 && root[y] == 0 )
-		root[x] = root[y] = x;
-	else if(root[x] == 0)
-		root[x] = root[y];
-	else if(root[y] == 0 )
-		root[y] = root[x];
-	else{
-		temp = root[y];
-		for(i=1;i<=n;i++)
-			if(root[i] == temp)	
-				root[i] = root[x];
-	}
-}
-
-void main(){
-
-	printf("\nEnter number of vertices :: ");
-	scanf("%d",&n);
-
-	printf("\nEnter Cost adjacency matrix :: \n");
-
-	for(i=1;i<=n;i++){
-		for(j=1;j<=n;j++)
-			scanf("%d",&cost[i][j]);
-	}
-
-	find_min();
-
-	while(min != 999 && count != (n-1)){
-
-		check_cycle();
-
-		if(flag){
-			printf("\n%d -- > %d :: cost = %d",x,y,min);
-			total_cost += min;
-			count++;
-			update();
 		}
+		u=find(u);
+		v=find(v);
+		if(uni(u,v))
+		{
 
-		cost[x][y] = cost[y][x] = 999;
-		find_min();
+			printf(" \n %d edge (%d,%d)=%d\n",ne++,a,b,min);
+			
+			mincost+=min;
+		}
+		cost[a][b]=cost[b][a]=999;
 	}
-	if(count < (n-2))
-		printf("\nGraph is not connected\n");
-	else
-		printf("\nTotalCost = %d\n",total_cost);
+
 }
 
 
+void main()
+{
+	struct timeval et,st;
+	int tm=0;
+	printf("Enter the no of vertices \n");
+	scanf("%d",&n);
+	printf("\nEnter the cost adjacency matrix\n");
+	for(i=1;i<=n;i++)
+	{
+		for(j=1;j<=n;j++)
+		{
+			scanf("%d",&cost[i][j]);
+			if(cost[i][j]==0)
+				cost[i][j]==999;
+		}
+	}
+	gettimeofday(&st,0);
+	kruskal();
+	gettimeofday(&et,0);
+	tm=et.tv_usec-st.tv_usec;
+	printf("\nTime taken is %d\n",tm);
+
+}
+
+int find(int i)
+{
+	while(parent[i])
+		i=parent[i];
+	return i;
+}
 
 
+int uni(int i,int j)
+{
+	if(i!=j)
+	{
+		parent[j]=i;
+		return 1;
+	}
+	return 0;
+}
 

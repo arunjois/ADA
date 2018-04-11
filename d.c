@@ -1,63 +1,70 @@
 #include<stdio.h>
-#include<sys/time.h>
-int cost[20][20],dist[20],n,v;
-int dij()
-{
-	int count,i,min,u,flag[20],w;
-	for(i=1;i<=n;i++)
-	{
-		flag[i]=0;
-		dist[i]=cost[v][i];
-	}
-	count=2;
-	while(count<n)
-	{
-		min=999;
-		for(w=1;w<=n;w++)
-		{
-			if(dist[w]<min && !flag[w]){
-				min=dist[w];
-				u=w;
-			}
-		}
-		flag[u]=1;
-		count++;
-		for(w=1;w<=n;w++)
-		{
-			if(dist[u]+cost[u][w]<dist[w] &&!flag[w])
-			{
-				dist[w]=dist[u]+cost[u][w];
-			}
-		}
-	}
-}
-
+#include<stdlib.h>
+#define INFINITY 9999
+#define MAX 10
+void dijkstra(int G[MAX][MAX],int n,int startnode);
 void main()
 {
-	int i, j;
-	printf("Enterno. of vertices : ");
+	int G[MAX][MAX],i,j,n,u;
+	printf("Enter the no of vertices:");
 	scanf("%d",&n);
-	printf("Enter adjacency matrix :\n");
+	printf("Enter the adjacency matrix:\n");
 	for(i=1;i<=n;i++)
-	{
 		for(j=1;j<=n;j++)
-		{
-			scanf("%d",&cost[i][j]);
-			if(cost[i][j]==0)
-			{
-				cost[i][j]=999;
-			}
-		}
-	}
-	printf("Enter source : ");
-	scanf("%d",&v);
-	dij();
-	printf("\nShortest path is : \n");
+			scanf("%d",&G[i][j]);
+	printf("Enter the starting node:");
+	scanf("%d",&u);
+	dijkstra(G,n,u);
+}
+void dijkstra(int G[MAX][MAX],int n,int startnode)
+{
+	int cost[MAX][MAX],distance[MAX],pred[MAX];
+	int visited[MAX],count,mindistance,nextnode,i,j;
+	for(i=1;i<=n;i++)
+		for(j=1;j<=n;j++)
+			if(G[i][j]==0)
+				cost[i][j]=INFINITY;
+			else
+				cost[i][j]=G[i][j];
 	for(i=1;i<=n;i++)
 	{
-		if(i!=v)
-		{
-			printf("%d --> %d cost %d\n",v,i,dist[i]);
-		}
+		distance[i]=cost[startnode][i];
+		pred[i]=startnode;
+		visited[i]=0;
 	}
+	distance[startnode]=0;
+	visited[startnode]=1;
+	count=1;
+	while(count<n-1)
+	{
+		mindistance=INFINITY;
+		for(i=1;i<=n;i++)
+			if(distance[i]<mindistance && !visited[i])
+			{
+				mindistance=distance[i];
+				nextnode=i;
+			}
+		visited[nextnode]=1;
+		for(i=1;i<=n;i++)
+			if(!visited[i])
+				if(mindistance+cost[nextnode][i]<distance[i])
+				{
+					distance[i]=mindistance+cost[nextnode][i];
+					pred[i]=nextnode;
+				}
+		count++;
+	}
+	for(i=1;i<=n;i++)
+		if(i!=startnode)
+		{
+			printf("\nDistance of node %d=%d",i,distance[i]);
+			printf("\npath=%d",i);
+			j=i;
+			do
+			{
+				j=pred[j];
+				printf("<-%d",j);
+			}
+			while(j!=startnode);
+		}
 }
