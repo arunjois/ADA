@@ -70,4 +70,3 @@ void main()
 	scanf("%d",&m);
 	knap();
 }
-
