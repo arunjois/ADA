@@ -12,7 +12,11 @@ void main()
 			scanf("%d",&a[i][j]);
 		}
 	warshall(a,n);
+
 }
+/*
+ * Added a comment
+ */
 void warshall(int p[10][10],int n)
 {
 int i,j,k;
@@ -26,6 +30,10 @@ for(k=1;k<=n;k++)
 			}
 
 		}
+
+
+
+
 printf("Transitive Closure\n");
 for(i=1;i<=n;i++)
 {
