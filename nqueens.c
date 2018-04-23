@@ -63,13 +63,3 @@ void queen (int row,int n)
 	}
 }
 
-
-
-
-
-
-
-
-
-
-
