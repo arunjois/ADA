@@ -1,8 +1,8 @@
 #include "stdio.h"
 
-int n = 6, totalDistance = 0;
-int path[20], rear = 0, min, temp[20], s, visited[20], firstVertex,cost_matrix[20][20];
-
+int n, totalDistance = 0;
+int path[20], rear = 0, min, temp[20], s, visited[20], firstVertex;
+int cost_matrix[20][20];
 /*
 int cost_matrix[5][5] = {{0,  3,  6,  17, 2},
                          {3,  0,  12, 15, 13},
@@ -118,13 +118,13 @@ int main() {
 
 
    // Remove comment for manual input
-    int i, j,sv;
+    int i, j;
     printf("\n Input number of objects: ");
     scanf("%d", &n);
     printf("\n Input matrix: \n");
-    for (i = 1; i <= n; ++i) {
+    for (i = 0; i < n; ++i) {
         visited[i] = 0;
-        for (j = 1; j <= n; ++j) {
+        for (j = 0; j < n; ++j) {
             scanf("%d", &cost_matrix[i][j]);
         }
     }
