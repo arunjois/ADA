@@ -4,14 +4,14 @@
 
 int board[20],count;
 int main()
-		{
-			int i,j,n;
-			void queen(int row,int n);
-			printf("Enter the number of queens\n");
-			scanf("%d",&n);
-			queen(1,n);
-			return 0;
-		}
+{
+	int i,j,n;
+	void queen(int row,int n);
+	printf("Enter the number of queens\n");
+	scanf("%d",&n);
+	queen(1,n);
+	return 0;
+}
 
 void print(int n)
 {

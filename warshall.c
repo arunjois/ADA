@@ -19,29 +19,25 @@ void main()
  */
 void warshall(int p[10][10],int n)
 {
-int i,j,k;
-for(k=1;k<=n;k++)
+	int i,j,k;
+	for(k=1;k<=n;k++)
+		for(i=1;i<=n;i++)
+			for(j=1;j<=n;j++)
+			{
+				if(p[i][j]==0 && p[k][j]==1 &&p[i][k]==1)
+				{
+					p[i][j]=1;
+				}
+
+			}
+	printf("Transitive Closure\n");
 	for(i=1;i<=n;i++)
+	{
 		for(j=1;j<=n;j++)
 		{
-			if(p[i][j]==0 && p[k][j]==1 &&p[i][k]==1)
-			{
-				p[i][j]=1;
-			}
-
+			printf("%d",p[i][j]);
 		}
-
-
-
-
-printf("Transitive Closure\n");
-for(i=1;i<=n;i++)
-{
-	for(j=1;j<=n;j++)
-	{
-		printf("%d",p[i][j]);
-	}
-	printf("\n");
-}			
+		printf("\n");
+	}			
 }
 
