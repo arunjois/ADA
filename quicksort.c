@@ -54,6 +54,3 @@ void quicksort(int *arr,int low,int high)
 		quicksort(arr,j+1,high);
 	}
 }
-
-
-
